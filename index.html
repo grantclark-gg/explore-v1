@@ -49,6 +49,20 @@
     <a class="gg-header__logo" href="#" aria-label="GivenGain home">
       <img src="assets/givengain-logo-white.svg" alt="GivenGain" width="64" height="38">
     </a>
+
+    <nav class="gg-header__sub" aria-label="On this page">
+      <ul>
+        <li><a href="#reporting" data-gg-spy>Reporting</a></li>
+        <li><a href="#examples" data-gg-spy>Examples</a></li>
+        <li><a href="#statements" data-gg-spy>Statements</a></li>
+        <li><a href="#best-results" data-gg-spy>Best results</a></li>
+        <li><a href="#security" data-gg-spy>Security</a></li>
+        <li><a href="#learn" data-gg-spy>Learn</a></li>
+        <li><a href="#faq" data-gg-spy>FAQ</a></li>
+      </ul>
+    </nav>
+
+    <a href="#" class="gg-btn gg-btn--yellow gg-btn--sm gg-header__cta">Explore your data</a>
   </div>
 </header>
 
@@ -209,27 +223,15 @@
         <div class="gg-examples__panels">
           <div class="gg-card gg-examples__panel" role="tabpanel" id="ex-panel-1" aria-labelledby="ex-tab-1" tabindex="0">
             <ul class="gg-tags"><li>Written summary</li><li>KPI summary</li></ul>
-            <div class="gg-placeholder">
-              <svg class="gg-icon" aria-hidden="true"><use href="#i-image"/></svg>
-              <p class="gg-placeholder__label">Screenshot needed</p>
-              <p>Executive summary of the last 90 days: written summary with KPI tiles.</p>
-            </div>
+            <img class="gg-examples__shot" src="assets/screens/explore-kpi-summary.jpg" alt="Explore answering a question with a written summary and KPI tiles for peak month raised and secondary peak." width="924" height="892" loading="lazy">
           </div>
           <div class="gg-card gg-examples__panel" role="tabpanel" id="ex-panel-2" aria-labelledby="ex-tab-2" tabindex="0" hidden>
             <ul class="gg-tags"><li>Detailed table</li><li>Fundraiser analysis</li></ul>
-            <div class="gg-placeholder">
-              <svg class="gg-icon" aria-hidden="true"><use href="#i-image"/></svg>
-              <p class="gg-placeholder__label">Screenshot needed</p>
-              <p>Top 10 fundraisers table.</p>
-            </div>
+            <img class="gg-examples__shot" src="assets/screens/explore-report-table.jpg" alt="Explore showing a Report Details table of monthly totals and donation counts, with Copy Table and Export CSV options." width="894" height="864" loading="lazy">
           </div>
           <div class="gg-card gg-examples__panel" role="tabpanel" id="ex-panel-3" aria-labelledby="ex-tab-3" tabindex="0" hidden>
             <ul class="gg-tags"><li>Bar chart</li><li>Year-on-year comparison</li></ul>
-            <div class="gg-placeholder">
-              <svg class="gg-icon" aria-hidden="true"><use href="#i-image"/></svg>
-              <p class="gg-placeholder__label">Screenshot needed</p>
-              <p>This year vs last year bar chart.</p>
-            </div>
+            <img class="gg-examples__shot" src="assets/screens/explore-trend-chart.jpg" alt="Explore showing a Monthly Donation Trends line chart with export options, above a Report Details table." width="924" height="892" loading="lazy">
           </div>
           <div class="gg-card gg-examples__panel" role="tabpanel" id="ex-panel-4" aria-labelledby="ex-tab-4" tabindex="0" hidden>
             <ul class="gg-tags"><li>Trend line</li><li>Detailed table</li></ul>
@@ -237,19 +239,11 @@
           </div>
           <div class="gg-card gg-examples__panel" role="tabpanel" id="ex-panel-5" aria-labelledby="ex-tab-5" tabindex="0" hidden>
             <ul class="gg-tags"><li>Donation-to-payout reporting</li><li>Detailed table</li></ul>
-            <div class="gg-placeholder">
-              <svg class="gg-icon" aria-hidden="true"><use href="#i-image"/></svg>
-              <p class="gg-placeholder__label">Screenshot needed</p>
-              <p>Donations included in the latest payout (table).</p>
-            </div>
+            <img class="gg-examples__shot" src="assets/screens/explore-start.jpg" alt="The Explore start screen, with suggested explorations and a box to ask a question about your charity’s donation reports." width="1068" height="834" loading="lazy">
           </div>
           <div class="gg-card gg-examples__panel" role="tabpanel" id="ex-panel-6" aria-labelledby="ex-tab-6" tabindex="0" hidden>
             <ul class="gg-tags"><li>KPI summary</li><li>Donor analysis</li></ul>
-            <div class="gg-placeholder">
-              <svg class="gg-icon" aria-hidden="true"><use href="#i-image"/></svg>
-              <p class="gg-placeholder__label">Screenshot needed</p>
-              <p>Unique donors in the last six months (KPI tile).</p>
-            </div>
+            <img class="gg-examples__shot" src="assets/screens/explore-kpi-summary.jpg" alt="Explore answering a question with a written summary and KPI tiles." width="924" height="892" loading="lazy">
           </div>
         </div>
       </div>
@@ -473,19 +467,6 @@
           <summary>Can I export what Explore creates?</summary>
           <div class="gg-faq__body"><p>Yes. Charts can be exported as PNG or SVG files, and tables can be copied or exported as CSV files.</p></div>
         </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FINAL CTA ============ -->
-  <section class="gg-cta" aria-labelledby="cta-title">
-    <div class="gg-container gg-container--narrow">
-      <p class="gg-eyebrow">Start exploring</p>
-      <h2 id="cta-title" class="gg-h2">Ask your first question.</h2>
-      <p class="gg-lead">Explore is available now in your Charity Dashboard. Ask about your fundraising in everyday language and get the reporting you need.</p>
-      <div class="gg-cta__buttons">
-        <a href="#" class="gg-btn gg-btn--yellow gg-btn--lg">Explore your data</a>
-        <a href="#learn" class="gg-btn gg-btn--outline gg-btn--lg">Watch the training video</a>
       </div>
     </div>
   </section>

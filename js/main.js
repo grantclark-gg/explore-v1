@@ -1,6 +1,7 @@
 /*
  * GivenGain – Explore landing page behaviour
- * Header scroll state, example tabs and the product demo animation.
+ * Header scroll state, on-page nav highlighting, example tabs and the
+ * product demo animation.
  * No dependencies.
  */
 (function () {
@@ -16,6 +17,43 @@
   }
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
+
+  /* ---------- On-page nav: highlight the section in view ---------- */
+  var spyLinks = document.querySelectorAll("[data-gg-spy]");
+  var sections = [];
+  spyLinks.forEach(function (link) {
+    var target = document.querySelector(link.getAttribute("href"));
+    if (target && sections.indexOf(target) === -1) sections.push(target);
+  });
+
+  function setActive(id) {
+    spyLinks.forEach(function (link) {
+      var on = link.getAttribute("href") === "#" + id;
+      link.classList.toggle("is-active", on);
+      // On narrow screens the nav scrolls sideways; keep the active link in view.
+      if (on && link.parentNode.parentNode.scrollWidth > link.parentNode.parentNode.clientWidth) {
+        var list = link.parentNode.parentNode;
+        list.scrollTo({ left: link.offsetLeft - 20, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    });
+  }
+
+  if ("IntersectionObserver" in window && sections.length) {
+    var visible = new Set();
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) visible.add(entry.target.id);
+        else visible.delete(entry.target.id);
+      });
+      // The first section (in page order) crossing the band near the top wins.
+      var current = null;
+      sections.forEach(function (s) {
+        if (!current && visible.has(s.id)) current = s.id;
+      });
+      setActive(current);
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
 
   /* ---------- Example question tabs ---------- */
   document.querySelectorAll("[data-gg-tabs]").forEach(function (root) {
