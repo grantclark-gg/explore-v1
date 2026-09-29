@@ -11,7 +11,7 @@ Open `index.html` in a browser, or serve the folder (for example `python3 -m htt
 | `index.html` | The page. Sections are marked with `<!-- ===== -->` comments. |
 | `css/tokens.css` | Brand colours, type scale, spacing and shape as CSS custom properties. |
 | `css/main.css` | Layout and components. Every class is prefixed `gg-` to avoid clashes when merged. |
-| `js/main.js` | Header scroll state, section highlighting in the header, mobile menu, example tabs, product demo animation. No dependencies. |
+| `js/main.js` | Header scroll state, example tabs, product demo animation. No dependencies. |
 | `assets/` | Logo (white and dark blue SVG), hero photo, product screenshots. |
 
 ## Page structure
@@ -48,7 +48,7 @@ All links are `#` placeholders for now.
 ## Notes for integration
 
 - **Font:** Figtree is loaded from Google Fonts in the `<head>`. Remove that link if the main site already loads it.
-- **Header and footer:** these recreate the live site's so the page can be reviewed on its own. When merging, keep the main site's header and footer. The page-specific part is the second row of section links (`.gg-header__sub`, and the matching items in `.gg-mobile-menu__list`).
-- **Header behaviour:** transparent over the hero; once scrolled, a blurred Dark Blue background with a row of section links, and the link for the section in view turns yellow with an underline. At 1100px and below it switches to the hamburger menu.
+- **Header:** logo only for now. It is transparent over the hero and turns blurred Dark Blue once the page is scrolled. When merging, use the main site's header.
+- **Footer:** recreates the live site's so the page can be reviewed on its own. When merging, use the main site's footer.
 - **Product demo:** the interface in `#reporting` is rebuilt in HTML and CSS with sample data for a fictional charity, and is labelled "Sample data for illustration." It plays once when scrolled into view and can be replayed. With reduced motion turned on, it shows the finished state straight away.
 - **Buttons:** Yellow for the main action, white outline for everything else. No red buttons.

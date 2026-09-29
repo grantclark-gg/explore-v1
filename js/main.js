@@ -1,7 +1,7 @@
 /*
  * GivenGain – Explore landing page behaviour
- * Header scroll state, on-page nav highlighting, mobile menu,
- * example tabs and the product demo animation. No dependencies.
+ * Header scroll state, example tabs and the product demo animation.
+ * No dependencies.
  */
 (function () {
   "use strict";
@@ -16,64 +16,6 @@
   }
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
-
-  /* ---------- Mobile menu ---------- */
-  var toggle = document.querySelector("[data-gg-menu-toggle]");
-  var menu = document.querySelector("[data-gg-menu]");
-
-  function setMenu(open) {
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    menu.hidden = !open;
-    header.classList.toggle("is-menu-open", open);
-  }
-
-  toggle.addEventListener("click", function () {
-    setMenu(toggle.getAttribute("aria-expanded") !== "true");
-  });
-  menu.addEventListener("click", function (e) {
-    if (e.target.closest("a")) setMenu(false);
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !menu.hidden) {
-      setMenu(false);
-      toggle.focus();
-    }
-  });
-  window.matchMedia("(min-width: 1101px)").addEventListener("change", function (e) {
-    if (e.matches) setMenu(false);
-  });
-
-  /* ---------- On-page nav: highlight the section in view ---------- */
-  var spyLinks = document.querySelectorAll("[data-gg-spy]");
-  var sections = [];
-  spyLinks.forEach(function (link) {
-    var target = document.querySelector(link.getAttribute("href"));
-    if (target && sections.indexOf(target) === -1) sections.push(target);
-  });
-
-  function setActive(id) {
-    spyLinks.forEach(function (link) {
-      link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
-    });
-  }
-
-  if ("IntersectionObserver" in window && sections.length) {
-    var visible = new Map();
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) visible.set(entry.target.id, entry.target);
-        else visible.delete(entry.target.id);
-      });
-      // The topmost section crossing the middle band of the viewport wins.
-      var current = null;
-      sections.forEach(function (s) {
-        if (!current && visible.has(s.id)) current = s.id;
-      });
-      setActive(current);
-    }, { rootMargin: "-40% 0px -55% 0px" });
-    sections.forEach(function (s) { spy.observe(s); });
-  }
 
   /* ---------- Example question tabs ---------- */
   document.querySelectorAll("[data-gg-tabs]").forEach(function (root) {
