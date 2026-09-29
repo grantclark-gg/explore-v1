@@ -1,0 +1,62 @@
+/*
+ * GivenGain design tokens
+ * Brand colours are exact; the tints (lavender, overlay, dividers) were
+ * sampled from the current site screenshots.
+ */
+:root {
+  /* Brand palette */
+  --gg-dark-blue: #15006d;
+  --gg-yellow: #ffdf71;
+  --gg-medium-blue: #009bde;
+  --gg-light-blue: #8de6e6;
+  --gg-dark-purple: #7753de;
+  --gg-red: #ea605a;
+  --gg-pink: #ff9797;
+  --gg-light-purple: #a485fd;
+  --gg-green: #48c298;
+  --gg-white: #ffffff;
+
+  /* Sampled tints */
+  --gg-lavender: #f7f6fb;          /* alternate section background */
+  --gg-hero-deep: #110348;         /* bottom of hero overlay */
+  --gg-divider-light: #e4e3e8;     /* FAQ and list dividers on white */
+  --gg-divider-dark: #2d1b7c;      /* dividers and circles on dark blue */
+  --gg-header-glass: rgba(21, 0, 109, 0.9);
+
+  /* Text */
+  --gg-text: var(--gg-dark-blue);
+  --gg-text-on-dark: var(--gg-white);
+  --gg-text-muted-on-dark: rgba(255, 255, 255, 0.55);
+
+  /* Type */
+  --gg-font: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gg-fs-display: clamp(2.5rem, 1.4rem + 4.4vw, 5rem);   /* hero h1 */
+  --gg-fs-h2: clamp(2rem, 1.35rem + 2.4vw, 3.25rem);
+  --gg-fs-h3: 1.25rem;
+  --gg-fs-lead: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+  --gg-fs-body: 1.0625rem;
+  --gg-fs-small: 0.9375rem;
+  --gg-fs-eyebrow: 0.875rem;
+  --gg-tracking-caps: 0.18em;
+  --gg-tracking-tight: -0.025em;
+
+  /* Layout */
+  --gg-container: 1140px;
+  --gg-container-narrow: 860px;
+  --gg-gutter: clamp(1.25rem, 4vw, 2rem);
+  --gg-section-y: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  --gg-header-h: 84px;
+
+  /* Shape */
+  --gg-radius-card: 14px;
+  --gg-radius-pill: 999px;
+  --gg-shadow-card: 0 12px 32px rgba(21, 0, 109, 0.08), 0 2px 6px rgba(21, 0, 109, 0.05);
+
+  --gg-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --gg-header-h: 68px;
+  }
+}
