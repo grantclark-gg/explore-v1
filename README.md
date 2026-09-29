@@ -11,7 +11,7 @@ Open `index.html` in a browser, or serve the folder (for example `python3 -m htt
 | `index.html` | The page. Sections are marked with `<!-- ===== -->` comments. |
 | `css/tokens.css` | Brand colours, type scale, spacing and shape as CSS custom properties. |
 | `css/main.css` | Layout and components. Every class is prefixed `gg-` to avoid clashes when merged. |
-| `js/main.js` | Header scroll state, section highlighting in the header, example tabs, product demo animation. No dependencies. |
+| `js/main.js` | Header scroll state, mobile menu, section highlighting in the header, example tabs, product demo animation. No dependencies. |
 | `assets/` | Logo (white and dark blue SVG), hero photo, product screenshots. |
 
 ## Page structure
@@ -50,7 +50,7 @@ The screenshots show real figures from the GivenGain Foundation USA account.
 ## Notes for integration
 
 - **Font:** Figtree is loaded from Google Fonts in the `<head>`. Remove that link if the main site already loads it.
-- **Header:** logo only over the hero. Once the page is scrolled it turns blurred Dark Blue and shows a row of section links and a right-aligned **Explore your data** button; the link for the section in view turns yellow with an underline. Below 1180px the section links move to a second row that scrolls sideways. When merging, the section links and button are the page-specific parts.
+- **Header:** logo only over the hero. On desktop, once the page is scrolled it turns Dark Blue and shows a row of section links and a right-aligned **Explore your data** button; the link for the section in view turns yellow. At 1240px and below, the links and button move into a hamburger menu that drops down under the header. When merging, the section links and button are the page-specific parts.
 - **Footer:** recreates the live site's so the page can be reviewed on its own. When merging, use the main site's footer.
 - **Product demo:** the interface in `#reporting` is rebuilt in HTML and CSS with sample data for a fictional charity, and is labelled "Sample data for illustration." It plays once when scrolled into view and can be replayed. With reduced motion turned on, it shows the finished state straight away.
 - **Buttons:** Yellow for the main action, white outline for everything else. No red buttons.

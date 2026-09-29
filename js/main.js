@@ -1,7 +1,7 @@
 /*
  * GivenGain – Explore landing page behaviour
- * Header scroll state, on-page nav highlighting, example tabs and the
- * product demo animation.
+ * Header scroll state, mobile menu, on-page nav highlighting, example tabs
+ * and the product demo animation.
  * No dependencies.
  */
 (function () {
@@ -18,6 +18,33 @@
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
+  /* ---------- Mobile menu ---------- */
+  var toggle = document.querySelector("[data-gg-menu-toggle]");
+  var menu = document.querySelector("[data-gg-menu]");
+
+  function setMenu(open) {
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menu.hidden = !open;
+    header.classList.toggle("is-menu-open", open);
+  }
+
+  toggle.addEventListener("click", function () {
+    setMenu(toggle.getAttribute("aria-expanded") !== "true");
+  });
+  menu.addEventListener("click", function (e) {
+    if (e.target.closest("a")) setMenu(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !menu.hidden) {
+      setMenu(false);
+      toggle.focus();
+    }
+  });
+  window.matchMedia("(min-width: 1241px)").addEventListener("change", function (e) {
+    if (e.matches) setMenu(false);
+  });
+
   /* ---------- On-page nav: highlight the section in view ---------- */
   var spyLinks = document.querySelectorAll("[data-gg-spy]");
   var sections = [];
@@ -28,13 +55,7 @@
 
   function setActive(id) {
     spyLinks.forEach(function (link) {
-      var on = link.getAttribute("href") === "#" + id;
-      link.classList.toggle("is-active", on);
-      // On narrow screens the nav scrolls sideways; keep the active link in view.
-      if (on && link.parentNode.parentNode.scrollWidth > link.parentNode.parentNode.clientWidth) {
-        var list = link.parentNode.parentNode;
-        list.scrollTo({ left: link.offsetLeft - 20, behavior: reduceMotion ? "auto" : "smooth" });
-      }
+      link.classList.toggle("is-active", link.getAttribute("href") === "#" + id);
     });
   }
 

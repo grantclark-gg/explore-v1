@@ -21,7 +21,6 @@
   --gg-hero-deep: #110348;         /* bottom of hero overlay */
   --gg-divider-light: #e4e3e8;     /* FAQ and list dividers on white */
   --gg-divider-dark: #2d1b7c;      /* dividers and circles on dark blue */
-  --gg-header-glass: rgba(21, 0, 109, 0.9);
 
   /* Text */
   --gg-text: var(--gg-dark-blue);
