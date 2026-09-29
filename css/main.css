@@ -147,19 +147,6 @@ button { font: inherit; color: inherit; }
 .gg-btn--lg { padding: 1.05em 2.6em; font-size: 1.25rem; font-weight: 800; }
 .gg-btn--block { display: flex; width: 100%; }
 
-.gg-link-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  padding: 0.25em 0.5em;
-  border: 0;
-  background: none;
-  color: var(--gg-dark-purple);
-  font-weight: 600;
-  cursor: pointer;
-}
-.gg-link-btn .gg-icon { width: 1em; height: 1em; }
-.gg-link-btn:hover { text-decoration: underline; }
 
 /* ==========================================================================
    Header
@@ -562,28 +549,38 @@ button { font: inherit; color: inherit; }
   text-transform: uppercase;
 }
 .gg-app__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.gg-app__chips li {
-  padding: 0.35rem 0.9rem;
+.gg-app__chips button {
+  padding: 0.4rem 0.95rem;
   border: 1px solid #dcdbe5;
   border-radius: var(--gg-radius-pill);
+  background: var(--gg-white);
+  color: var(--gg-dark-blue);
   font-size: 0.8125rem;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
-.gg-app__chips li.is-picked.is-lit {
+.gg-app__chips button:hover { border-color: var(--gg-dark-blue); }
+.gg-app__chips button[aria-pressed="true"] {
   border-color: var(--gg-dark-blue);
   background: var(--gg-dark-blue);
   color: var(--gg-white);
 }
 
 .gg-app__thread {
-  display: grid;
-  gap: 1rem;
+  height: 640px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   margin-top: 1.25rem;
   padding: clamp(0.9rem, 2vw, 1.5rem);
   border: 1px solid #ebeaf1;
   border-radius: 18px;
   background: #f8f9fc;
 }
+.gg-app__screen { display: grid; gap: 1rem; }
+.gg-app__screen[hidden] { display: none; }
+.gg-app__screen.is-entering { animation: gg-screen-in 0.35s var(--gg-ease); }
+@keyframes gg-screen-in { from { opacity: 0; transform: translateY(8px); } }
 .gg-app__bubble {
   justify-self: end;
   max-width: 85%;
@@ -605,6 +602,8 @@ button { font: inherit; color: inherit; }
 }
 
 .gg-app__kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.gg-app__kpis--3 { grid-template-columns: repeat(3, 1fr); }
+.gg-app__kpis--4 { grid-template-columns: repeat(2, 1fr); }
 .gg-app__kpi {
   padding: 1rem 1.2rem;
   border: 1px solid #ebeaf1;
@@ -654,11 +653,13 @@ button { font: inherit; color: inherit; }
 .gg-chart__axis { stroke: #b9b7c9; }
 .gg-chart__line { fill: none; stroke: var(--gg-dark-blue); stroke-width: 2.5; stroke-linecap: round; }
 .gg-chart__dots circle { fill: var(--gg-dark-blue); }
+.gg-chart .is-curr { fill: var(--gg-dark-blue); }
+.gg-chart .is-prev { fill: var(--gg-light-purple); }
 .gg-chart__legend line { stroke: var(--gg-dark-blue); stroke-width: 2; }
 .gg-chart__legend circle { fill: var(--gg-white); stroke: var(--gg-dark-blue); stroke-width: 1.5; }
 .gg-chart__legend text { fill: var(--gg-dark-blue); font-size: 12px; }
 
-.gg-app__panel--table { background: #fafbfd; }
+.gg-app__panel--table { overflow-x: auto; background: #fafbfd; }
 .gg-app__table { width: 100%; border-collapse: collapse; background: var(--gg-white); font-size: 0.875rem; }
 .gg-app__table th,
 .gg-app__table td { padding: 0.7rem 1.2rem; border-top: 1px solid #ebeaf1; text-align: left; }
@@ -670,6 +671,8 @@ button { font: inherit; color: inherit; }
   text-transform: uppercase;
 }
 .gg-app__table td { font-variant-numeric: tabular-nums; }
+.gg-app__table .is-num { text-align: right; }
+.gg-app__table-note { padding: 0.7rem 1.2rem; border-top: 1px solid #ebeaf1; color: #5b5870; font-size: 0.8125rem; }
 
 .gg-app__input { display: flex; gap: 0.6rem; margin-top: 1rem; }
 .gg-app__field {
@@ -686,18 +689,6 @@ button { font: inherit; color: inherit; }
   overflow: hidden;
 }
 .gg-app__placeholder { color: #8a879c; overflow: hidden; text-overflow: ellipsis; }
-.gg-app__typed:not(:empty) + .gg-app__placeholder { display: none; }
-.gg-app__typed:not(:empty)::after {
-  content: "";
-  display: inline-block;
-  width: 1.5px;
-  height: 1.1em;
-  margin-left: 1px;
-  vertical-align: -0.2em;
-  background: var(--gg-dark-blue);
-  animation: gg-caret 1s steps(1) infinite;
-}
-@keyframes gg-caret { 50% { opacity: 0; } }
 .gg-app__send {
   display: grid;
   place-items: center;
@@ -706,52 +697,39 @@ button { font: inherit; color: inherit; }
   border-radius: var(--gg-radius-pill);
   background: var(--gg-dark-blue);
   color: var(--gg-white);
-  transition: transform 0.2s;
 }
 .gg-app__send .gg-icon { width: 20px; height: 20px; }
-.gg-app__send.is-pressed { transform: scale(0.94); }
 
 .gg-demo__caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
   margin-bottom: 1.25rem;
+  text-align: center;
   color: #5b5870;
   font-size: 0.875rem;
 }
-
-/* Demo animation states (JS adds .is-animating, then .is-shown per step) */
-.gg-demo.is-animating [data-step] {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.5s var(--gg-ease), transform 0.5s var(--gg-ease);
-}
-.gg-demo.is-animating [data-step].is-shown { opacity: 1; transform: none; }
-.gg-demo.is-animating .gg-chart__line { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.gg-demo.is-animating .gg-chart__dots circle { opacity: 0; transition: opacity 0.3s; }
-.gg-demo.is-animating [data-step].is-shown .gg-chart__line { stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s var(--gg-ease) 0.2s; }
-.gg-demo.is-animating [data-step].is-shown .gg-chart__dots circle { opacity: 1; transition-delay: 1.2s; }
 
 @media (max-width: 700px) {
   .gg-app { border-radius: 18px; }
   .gg-app__head { padding: 0.9rem; gap: 0.75rem; }
   .gg-app__badge { width: 40px; height: 40px; }
   .gg-app__title span { display: none; }
-  .gg-app__chips li:nth-child(n + 4):not(.is-picked) { display: none; }
+  .gg-app__chips { flex-wrap: nowrap; margin-inline: -0.25rem; padding: 0 0.25rem 0.25rem; overflow-x: auto; scrollbar-width: none; }
+  .gg-app__chips::-webkit-scrollbar { display: none; }
+  .gg-app__chips button { flex: none; }
+  .gg-app__thread { height: 560px; }
   .gg-app__reply { max-width: 100%; padding: 1rem; }
-  .gg-app__kpis { grid-template-columns: 1fr; }
+  .gg-app__kpis,
+  .gg-app__kpis--3,
+  .gg-app__kpis--4 { grid-template-columns: 1fr; }
   .gg-app__tools { display: none; }
   .gg-chart text { font-size: 20px; }
   .gg-chart__legend text { font-size: 20px; }
-  .gg-chart__x text:nth-child(even) { display: none; }
+  .gg-chart--dense .gg-chart__x text:nth-child(even) { display: none; }
   .gg-app__table { font-size: 0.8125rem; }
   .gg-app__table th,
   .gg-app__table td { padding: 0.6rem 0.6rem; }
   .gg-app__table td { white-space: nowrap; }
   .gg-app__table th { font-size: 0.625rem; letter-spacing: 0.05em; vertical-align: bottom; }
   .gg-app__unit { display: none; }
-  .gg-app__table tr:nth-child(n + 4) { display: none; }
   .gg-app__send { width: 3.25rem; }
   .gg-chart { padding-inline: 0.25rem; }
 }

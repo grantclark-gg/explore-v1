@@ -1,7 +1,7 @@
 /*
  * GivenGain – Explore landing page behaviour
  * Header scroll state, mobile menu, on-page nav highlighting, example tabs
- * and the product demo animation.
+ * and the interactive product demo.
  * No dependencies.
  */
 (function () {
@@ -108,72 +108,31 @@
     });
   });
 
-  /* ---------- Product demo: type a question, then reveal the answer ---------- */
+  /* ---------- Product demo: each suggested exploration shows its own data screen ---------- */
   var demo = document.querySelector("[data-gg-demo]");
   if (demo) {
-    var typed = demo.querySelector("[data-gg-typed]");
-    var steps = demo.querySelectorAll("[data-step]");
-    var chip = demo.querySelector(".gg-app__chips .is-picked");
-    var send = demo.querySelector(".gg-app__send");
-    var replay = demo.querySelector("[data-gg-replay]");
-    var question = demo.querySelector('[data-step="1"]').textContent;
-    var timers = [];
+    var chips = demo.querySelectorAll("[data-gg-chip]");
+    var thread = demo.querySelector("[data-gg-thread]");
 
-    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
-
-    function reset() {
-      timers.forEach(clearTimeout);
-      timers = [];
-      typed.textContent = "";
-      chip.classList.remove("is-lit");
-      steps.forEach(function (s) { s.classList.remove("is-shown"); });
-    }
-
-    function play() {
-      reset();
-      demo.classList.add("is-animating");
-      var t = 400;
-      later(function () { chip.classList.add("is-lit"); }, t);
-      t += 500;
-      for (var i = 1; i <= question.length; i++) {
-        (function (n) {
-          later(function () { typed.textContent = question.slice(0, n); }, t + n * 32);
-        })(i);
-      }
-      t += question.length * 32 + 350;
-      later(function () {
-        send.classList.add("is-pressed");
-        typed.textContent = "";
-        steps[0].classList.add("is-shown");
-      }, t);
-      later(function () { send.classList.remove("is-pressed"); }, t + 180);
-      t += 700;
-      for (var j = 1; j < steps.length; j++) {
-        (function (step, delay) {
-          later(function () { step.classList.add("is-shown"); }, delay);
-        })(steps[j], t + (j - 1) * 650);
-      }
-    }
-
-    function showAll() {
-      reset();
-      demo.classList.remove("is-animating");
-      chip.classList.add("is-lit");
-    }
-
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      showAll();
-      replay.hidden = true;
-    } else {
-      demo.classList.add("is-animating");
-      var seen = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) {
-          play();
-          seen.disconnect();
-        }
-      }, { threshold: 0.35 });
-      seen.observe(demo);
-      replay.addEventListener("click", play);
-    }
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var key = chip.getAttribute("data-gg-chip");
+        chips.forEach(function (c) {
+          c.setAttribute("aria-pressed", String(c === chip));
+        });
+        demo.querySelectorAll("[data-gg-screen]").forEach(function (screen) {
+          var on = screen.getAttribute("data-gg-screen") === key;
+          screen.hidden = !on;
+          screen.classList.remove("is-entering");
+          if (on && !reduceMotion) {
+            void screen.offsetWidth; // restart the entrance animation
+            screen.classList.add("is-entering");
+          }
+        });
+        thread.scrollTop = 0;
+        // On phones the chips scroll sideways; keep the chosen one in view.
+        chip.scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+      });
+    });
   }
 })();

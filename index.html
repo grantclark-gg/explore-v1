@@ -20,7 +20,6 @@
   <defs>
     <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.9 4.4 11.3 8a3 3 0 0 0 1.7 1.7l3.6 1.4-3.6 1.4a3 3 0 0 0-1.7 1.7l-1.4 3.6-1.4-3.6a3 3 0 0 0-1.7-1.7L3.2 11.1l3.6-1.4A3 3 0 0 0 8.5 8z"/><path d="M18 3v4M16 5h4M18.5 16v3M17 17.5h3"/></symbol>
     <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10.5 13.5"/><path d="m21 3-6.5 18-4-7.5L3 9.5z"/></symbol>
-    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 20h14"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-5.5-5.5L19 12l-5.5 5.5"/></symbol>
@@ -107,96 +106,272 @@
         <p class="gg-lead">Your organization’s reporting needs are unique. Explore lets you ask the questions that matter to you and choose how you want the information presented.</p>
       </header>
 
-      <!-- Product demo: rebuilt Explore interface with sample data for a fictional charity -->
+      <!-- Product demo: rebuilt Explore interface with sample data for a fictional charity.
+           Each suggested exploration chip shows its own data screen (see main.js). -->
       <figure class="gg-demo" data-gg-demo>
-        <figcaption class="gg-demo__caption">
-          <span>Sample data for illustration.</span>
-          <button type="button" class="gg-link-btn" data-gg-replay><svg class="gg-icon" aria-hidden="true"><use href="#i-refresh"/></svg>Replay</button>
-        </figcaption>
-        <div class="gg-app" aria-hidden="true">
+        <figcaption class="gg-demo__caption">Sample data for illustration. Choose a suggested exploration to see its report.</figcaption>
+        <div class="gg-app">
           <div class="gg-app__head">
-            <span class="gg-app__badge"><svg class="gg-icon"><use href="#i-sparkle"/></svg></span>
+            <span class="gg-app__badge" aria-hidden="true"><svg class="gg-icon"><use href="#i-sparkle"/></svg></span>
             <div class="gg-app__title">
               <strong>Explore</strong>
               <span>Explore donation trends, fundraiser performance and top donor insights.</span>
             </div>
           </div>
 
-          <p class="gg-app__label">Suggested explorations</p>
-          <ul class="gg-app__chips">
-            <li>Executive summary – last 90 days</li>
-            <li>Top 10 fundraisers</li>
-            <li>This year vs last year</li>
-            <li class="is-picked">Monthly donation trends</li>
-            <li>Latest payout donations</li>
-            <li>Unique donors</li>
-          </ul>
+          <p class="gg-app__label" id="gg-demo-label">Suggested explorations</p>
+          <div class="gg-app__chips" role="group" aria-labelledby="gg-demo-label">
+            <button type="button" data-gg-chip="summary" aria-pressed="true" aria-controls="gg-screen-summary">Executive summary – last 90 days</button>
+            <button type="button" data-gg-chip="fundraisers" aria-pressed="false" aria-controls="gg-screen-fundraisers">Top 10 fundraisers</button>
+            <button type="button" data-gg-chip="compare" aria-pressed="false" aria-controls="gg-screen-compare">This year vs last year</button>
+            <button type="button" data-gg-chip="trends" aria-pressed="false" aria-controls="gg-screen-trends">Monthly donation trends</button>
+            <button type="button" data-gg-chip="payout" aria-pressed="false" aria-controls="gg-screen-payout">Latest payout donations</button>
+            <button type="button" data-gg-chip="donors" aria-pressed="false" aria-controls="gg-screen-donors">Unique donors</button>
+          </div>
 
-          <div class="gg-app__thread">
-            <div class="gg-app__bubble" data-step="1">Show our monthly donation trends as a chart.</div>
-
-            <div class="gg-app__reply">
-              <p data-step="2">Here is your monthly donation trend for the last 12 months. Donations peaked in May 2026 ($18,420.00 across 214 donations), with a second high in December 2025 ($12,940.00 across 167 donations).</p>
-
-              <div class="gg-app__kpis" data-step="3">
-                <div class="gg-app__kpi">
-                  <span class="gg-app__kpi-label">Peak month raised</span>
-                  <strong>$18,420.00</strong>
-                  <span>May 2026 (214 donations)</span>
+          <div class="gg-app__thread" data-gg-thread aria-live="polite">
+            <div class="gg-app__screen" id="gg-screen-summary" data-gg-screen="summary">
+              <div class="gg-app__bubble">Give me an executive summary of the last 90 days.</div>
+              <div class="gg-app__reply">
+                <p>In the last 90 days (July 1 – September 28, 2026) you raised $24,730.00 from 325 donations – 28% more than the same period last year. September was your strongest month, with $11,380.00 across 141 donations.</p>
+                <div class="gg-app__kpis gg-app__kpis--4">
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Total raised</span>
+                    <strong>$24,730.00</strong>
+                    <span>Jul 1 – Sep 28, 2026</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Donations</span>
+                    <strong>325</strong>
+                    <span>Across 3 months</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Unique donors</span>
+                    <strong>284</strong>
+                    <span>212 first-time donors</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Average donation</span>
+                    <strong>$76.09</strong>
+                    <span>Per donation</span>
+                  </div>
                 </div>
-                <div class="gg-app__kpi">
-                  <span class="gg-app__kpi-label">Secondary peak</span>
-                  <strong>$12,940.00</strong>
-                  <span>December 2025 (167 donations)</span>
+                <div class="gg-app__panel gg-app__panel--table">
+                  <div class="gg-app__panel-head">
+                    <strong>Report Details</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-copy"/></svg>Copy table</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export CSV</span></span>
+                  </div>
+                  <table class="gg-app__table">
+                    <thead><tr><th>Month</th><th class="is-num">Total raised</th><th class="is-num">Donations</th></tr></thead>
+                    <tbody>
+                      <tr><td>2026-09</td><td class="is-num">$11,380.00</td><td class="is-num">141</td></tr>
+                      <tr><td>2026-08</td><td class="is-num">$7,110.00</td><td class="is-num">96</td></tr>
+                      <tr><td>2026-07</td><td class="is-num">$6,240.00</td><td class="is-num">88</td></tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
+            </div>
 
-              <div class="gg-app__panel" data-step="4">
-                <div class="gg-app__panel-head">
-                  <strong>Monthly Donation Trends</strong>
-                  <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-download"/></svg>Export PNG</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export SVG</span></span>
+            <div class="gg-app__screen" id="gg-screen-fundraisers" data-gg-screen="fundraisers" hidden>
+              <div class="gg-app__bubble">Who are our top 10 fundraisers?</div>
+              <div class="gg-app__reply">
+                <p>Here are your top 10 fundraisers this year, ranked by total raised. Together they raised $21,860.00 – 28% of everything you have raised so far in 2026.</p>
+                <div class="gg-app__panel gg-app__panel--table">
+                  <div class="gg-app__panel-head">
+                    <strong>Report Details</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-copy"/></svg>Copy table</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export CSV</span></span>
+                  </div>
+                  <table class="gg-app__table">
+                    <thead><tr><th>#</th><th>Fundraiser</th><th>Event or project</th><th class="is-num">Raised</th><th class="is-num">Donations</th></tr></thead>
+                    <tbody>
+                      <tr><td>1</td><td>Amara Okafor</td><td>Autumn River Run</td><td class="is-num">$4,120.00</td><td class="is-num">52</td></tr>
+                      <tr><td>2</td><td>Liam Chen</td><td>City Marathon 2026</td><td class="is-num">$3,480.00</td><td class="is-num">44</td></tr>
+                      <tr><td>3</td><td>Sofia Martins</td><td>Autumn River Run</td><td class="is-num">$2,950.00</td><td class="is-num">38</td></tr>
+                      <tr><td>4</td><td>Daniel Brooks</td><td>Coast Cycle Challenge</td><td class="is-num">$2,410.00</td><td class="is-num">31</td></tr>
+                      <tr><td>5</td><td>Priya Nair</td><td>City Marathon 2026</td><td class="is-num">$2,060.00</td><td class="is-num">27</td></tr>
+                      <tr><td>6</td><td>Tom Whitaker</td><td>Coast Cycle Challenge</td><td class="is-num">$1,870.00</td><td class="is-num">25</td></tr>
+                      <tr><td>7</td><td>Grace Mensah</td><td>Birthday fundraiser</td><td class="is-num">$1,540.00</td><td class="is-num">19</td></tr>
+                      <tr><td>8</td><td>Lucas Weber</td><td>Autumn River Run</td><td class="is-num">$1,310.00</td><td class="is-num">17</td></tr>
+                      <tr><td>9</td><td>Hannah Kim</td><td>City Marathon 2026</td><td class="is-num">$1,120.00</td><td class="is-num">14</td></tr>
+                      <tr><td>10</td><td>Mateo Rossi</td><td>Birthday fundraiser</td><td class="is-num">$1,000.00</td><td class="is-num">12</td></tr>
+                    </tbody>
+                  </table>
                 </div>
-                <svg class="gg-chart" viewBox="0 0 640 282" role="img">
-                  <g class="gg-chart__grid">
-                    <line x1="56" x2="624" y1="20" y2="20"/><line x1="56" x2="624" y1="70" y2="70"/><line x1="56" x2="624" y1="120" y2="120"/><line x1="56" x2="624" y1="170" y2="170"/>
-                  </g>
-                  <line class="gg-chart__axis" x1="56" x2="624" y1="220" y2="220"/>
-                  <g class="gg-chart__y">
-                    <text x="46" y="24">20k</text><text x="46" y="74">15k</text><text x="46" y="124">10k</text><text x="46" y="174">5k</text><text x="46" y="224">0</text>
-                  </g>
-                  <path class="gg-chart__line" pathLength="1" d="M56.0,171.8 C73.2,167.7 90.4,171.1 107.6,158.5 C124.8,145.9 142.1,90.6 159.3,90.6 C176.5,90.6 193.7,162.1 210.9,167.9 C228.1,173.7 245.3,173.7 262.5,173.7 C279.8,173.7 297.0,153.9 314.2,145.2 C331.4,136.5 348.6,139.5 365.8,121.3 C383.0,103.1 400.2,35.8 417.5,35.8 C434.7,35.8 451.9,110.1 469.1,130.4 C486.3,150.7 503.5,157.6 520.7,157.6 C537.9,157.6 555.2,157.5 572.4,148.9 C589.6,140.3 606.8,120.4 624.0,106.2"/>
-                  <g class="gg-chart__dots">
-                    <circle cx="56.0" cy="171.8" r="4"/><circle cx="107.6" cy="158.5" r="4"/><circle cx="159.3" cy="90.6" r="4"/><circle cx="210.9" cy="167.9" r="4"/><circle cx="262.5" cy="173.7" r="4"/><circle cx="314.2" cy="145.2" r="4"/><circle cx="365.8" cy="121.3" r="4"/><circle cx="417.5" cy="35.8" r="4"/><circle cx="469.1" cy="130.4" r="4"/><circle cx="520.7" cy="157.6" r="4"/><circle cx="572.4" cy="148.9" r="4"/><circle cx="624.0" cy="106.2" r="4"/>
-                  </g>
-                  <g class="gg-chart__x">
-                    <text x="56.0" y="244">Oct</text><text x="107.6" y="244">Nov</text><text x="159.3" y="244">Dec</text><text x="210.9" y="244">Jan</text><text x="262.5" y="244">Feb</text><text x="314.2" y="244">Mar</text><text x="365.8" y="244">Apr</text><text x="417.5" y="244">May</text><text x="469.1" y="244">Jun</text><text x="520.7" y="244">Jul</text><text x="572.4" y="244">Aug</text><text x="624.0" y="244">Sep</text>
-                  </g>
-                  <g class="gg-chart__legend"><line x1="276" x2="292" y1="268" y2="268"/><circle cx="284" cy="268" r="3"/><text x="298" y="273">Total raised (USD)</text></g>
-                </svg>
               </div>
+            </div>
 
-              <div class="gg-app__panel gg-app__panel--table" data-step="5">
-                <div class="gg-app__panel-head">
-                  <strong>Report Details</strong>
-                  <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-copy"/></svg>Copy table</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export CSV</span></span>
+            <div class="gg-app__screen" id="gg-screen-compare" data-gg-screen="compare" hidden>
+              <div class="gg-app__bubble">Compare our fundraising this year with last year.</div>
+              <div class="gg-app__reply">
+                <p>From January to September you raised $79,300.00 in 2026, compared with $64,150.00 over the same months in 2025 – up 24%. May was your strongest month in both years.</p>
+                <div class="gg-app__kpis gg-app__kpis--3">
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">2026, Jan – Sep</span>
+                    <strong>$79,300.00</strong>
+                    <span>Year to date</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">2025, Jan – Sep</span>
+                    <strong>$64,150.00</strong>
+                    <span>Same period</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Change</span>
+                    <strong>+23.6%</strong>
+                    <span>+$15,150.00</span>
+                  </div>
                 </div>
-                <table class="gg-app__table">
-                  <thead><tr><th>Month</th><th>Total raised <span class="gg-app__unit">(USD)</span></th><th>Donations</th></tr></thead>
-                  <tbody>
-                    <tr><td>2026-09</td><td>$11,380.00</td><td>141</td></tr>
-                    <tr><td>2026-08</td><td>$7,110.00</td><td>96</td></tr>
-                    <tr><td>2026-07</td><td>$6,240.00</td><td>88</td></tr>
-                    <tr><td>2026-06</td><td>$8,960.00</td><td>117</td></tr>
-                    <tr><td>2026-05</td><td>$18,420.00</td><td>214</td></tr>
-                  </tbody>
-                </table>
+                <div class="gg-app__panel">
+                  <div class="gg-app__panel-head">
+                    <strong>Fundraising: 2026 vs 2025</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-download"/></svg>Export PNG</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export SVG</span></span>
+                  </div>
+                  <svg class="gg-chart gg-chart--dense" viewBox="0 0 640 282" role="img" aria-label="Bar chart comparing monthly fundraising from January to September, 2025 and 2026">
+                    <g class="gg-chart__grid"><line x1="56" x2="624" y1="170" y2="170"/><line x1="56" x2="624" y1="120" y2="120"/><line x1="56" x2="624" y1="70" y2="70"/><line x1="56" x2="624" y1="20" y2="20"/></g>
+                    <line class="gg-chart__axis" x1="56" x2="624" y1="220" y2="220"/>
+                    <g class="gg-chart__y"><text x="46" y="174">5k</text><text x="46" y="124">10k</text><text x="46" y="74">15k</text><text x="46" y="24">20k</text><text x="46" y="224">0</text></g>
+                    <g class="gg-chart__bars"><rect class="is-prev" x="66.6" y="179.0" width="18.9" height="41.0" rx="3"/><rect class="is-curr" x="89.6" y="167.9" width="18.9" height="52.1" rx="3"/><rect class="is-prev" x="129.7" y="181.0" width="18.9" height="39.0" rx="3"/><rect class="is-curr" x="152.7" y="173.7" width="18.9" height="46.3" rx="3"/><rect class="is-prev" x="192.8" y="158.0" width="18.9" height="62.0" rx="3"/><rect class="is-curr" x="215.8" y="145.2" width="18.9" height="74.8" rx="3"/><rect class="is-prev" x="256.0" y="144.0" width="18.9" height="76.0" rx="3"/><rect class="is-curr" x="278.9" y="121.3" width="18.9" height="98.7" rx="3"/><rect class="is-prev" x="319.1" y="62.0" width="18.9" height="158.0" rx="3"/><rect class="is-curr" x="342.0" y="35.8" width="18.9" height="184.2" rx="3"/><rect class="is-prev" x="382.2" y="147.0" width="18.9" height="73.0" rx="3"/><rect class="is-curr" x="405.1" y="130.4" width="18.9" height="89.6" rx="3"/><rect class="is-prev" x="445.3" y="165.0" width="18.9" height="55.0" rx="3"/><rect class="is-curr" x="468.2" y="157.6" width="18.9" height="62.4" rx="3"/><rect class="is-prev" x="508.4" y="161.0" width="18.9" height="59.0" rx="3"/><rect class="is-curr" x="531.3" y="148.9" width="18.9" height="71.1" rx="3"/><rect class="is-prev" x="571.5" y="141.5" width="18.9" height="78.5" rx="3"/><rect class="is-curr" x="594.4" y="106.2" width="18.9" height="113.8" rx="3"/></g>
+                    <g class="gg-chart__x"><text x="87.6" y="244">Jan</text><text x="150.7" y="244">Feb</text><text x="213.8" y="244">Mar</text><text x="276.9" y="244">Apr</text><text x="340.0" y="244">May</text><text x="403.1" y="244">Jun</text><text x="466.2" y="244">Jul</text><text x="529.3" y="244">Aug</text><text x="592.4" y="244">Sep</text></g>
+                    <g class="gg-chart__legend"><rect class="is-prev" x="210" y="262" width="12" height="12" rx="2"/><text x="228" y="273">2025</text><rect class="is-curr" x="320" y="262" width="12" height="12" rx="2"/><text x="338" y="273">2026</text></g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="gg-app__screen" id="gg-screen-trends" data-gg-screen="trends" hidden>
+              <div class="gg-app__bubble">Show our monthly donation trends as a chart.</div>
+              <div class="gg-app__reply">
+                <p>Here is your monthly donation trend for the last 12 months. Donations peaked in May 2026 ($18,420.00 across 214 donations), with a second high in December 2025 ($12,940.00 across 167 donations).</p>
+                <div class="gg-app__kpis">
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Peak month raised</span>
+                    <strong>$18,420.00</strong>
+                    <span>May 2026 (214 donations)</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Secondary peak</span>
+                    <strong>$12,940.00</strong>
+                    <span>December 2025 (167 donations)</span>
+                  </div>
+                </div>
+                <div class="gg-app__panel">
+                  <div class="gg-app__panel-head">
+                    <strong>Monthly Donation Trends</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-download"/></svg>Export PNG</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export SVG</span></span>
+                  </div>
+                  <svg class="gg-chart gg-chart--dense" viewBox="0 0 640 282" role="img" aria-label="Line chart of total raised each month from October 2025 to September 2026">
+                    <g class="gg-chart__grid"><line x1="56" x2="624" y1="170" y2="170"/><line x1="56" x2="624" y1="120" y2="120"/><line x1="56" x2="624" y1="70" y2="70"/><line x1="56" x2="624" y1="20" y2="20"/></g>
+                    <line class="gg-chart__axis" x1="56" x2="624" y1="220" y2="220"/>
+                    <g class="gg-chart__y"><text x="46" y="174">5k</text><text x="46" y="124">10k</text><text x="46" y="74">15k</text><text x="46" y="24">20k</text><text x="46" y="224">0</text></g>
+                    <path class="gg-chart__line" d="M56.0,171.8 C73.2,167.7 90.4,171.1 107.6,158.5 C124.8,145.9 142.1,90.6 159.3,90.6 C176.5,90.6 193.7,162.1 210.9,167.9 C228.1,173.7 245.3,173.7 262.5,173.7 C279.8,173.7 297.0,153.9 314.2,145.2 C331.4,136.5 348.6,139.5 365.8,121.3 C383.0,103.1 400.2,35.8 417.5,35.8 C434.7,35.8 451.9,110.1 469.1,130.4 C486.3,150.7 503.5,157.6 520.7,157.6 C537.9,157.6 555.2,157.5 572.4,148.9 C589.6,140.3 606.8,120.4 624.0,106.2"/>
+                    <g class="gg-chart__dots"><circle cx="56.0" cy="171.8" r="4"/><circle cx="107.6" cy="158.5" r="4"/><circle cx="159.3" cy="90.6" r="4"/><circle cx="210.9" cy="167.9" r="4"/><circle cx="262.5" cy="173.7" r="4"/><circle cx="314.2" cy="145.2" r="4"/><circle cx="365.8" cy="121.3" r="4"/><circle cx="417.5" cy="35.8" r="4"/><circle cx="469.1" cy="130.4" r="4"/><circle cx="520.7" cy="157.6" r="4"/><circle cx="572.4" cy="148.9" r="4"/><circle cx="624.0" cy="106.2" r="4"/></g>
+                    <g class="gg-chart__x"><text x="56.0" y="244">Oct</text><text x="107.6" y="244">Nov</text><text x="159.3" y="244">Dec</text><text x="210.9" y="244">Jan</text><text x="262.5" y="244">Feb</text><text x="314.2" y="244">Mar</text><text x="365.8" y="244">Apr</text><text x="417.5" y="244">May</text><text x="469.1" y="244">Jun</text><text x="520.7" y="244">Jul</text><text x="572.4" y="244">Aug</text><text x="624.0" y="244">Sep</text></g>
+                    <g class="gg-chart__legend"><line x1="276" x2="292" y1="268" y2="268"/><circle cx="284" cy="268" r="3"/><text x="298" y="273">Total raised (USD)</text></g>
+                  </svg>
+                </div>
+                <div class="gg-app__panel gg-app__panel--table">
+                  <div class="gg-app__panel-head">
+                    <strong>Report Details</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-copy"/></svg>Copy table</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export CSV</span></span>
+                  </div>
+                  <table class="gg-app__table">
+                    <thead><tr><th>Month</th><th class="is-num">Total raised</th><th class="is-num">Donations</th></tr></thead>
+                    <tbody>
+                      <tr><td>2026-09</td><td class="is-num">$11,380.00</td><td class="is-num">141</td></tr>
+                      <tr><td>2026-08</td><td class="is-num">$7,110.00</td><td class="is-num">96</td></tr>
+                      <tr><td>2026-07</td><td class="is-num">$6,240.00</td><td class="is-num">88</td></tr>
+                      <tr><td>2026-06</td><td class="is-num">$8,960.00</td><td class="is-num">117</td></tr>
+                      <tr><td>2026-05</td><td class="is-num">$18,420.00</td><td class="is-num">214</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="gg-app__screen" id="gg-screen-payout" data-gg-screen="payout" hidden>
+              <div class="gg-app__bubble">Show the donations included in our latest payout.</div>
+              <div class="gg-app__reply">
+                <p>Your latest payout, PO-20260915, was paid on September 15, 2026. It includes 42 donations totaling $3,418.50, received between August 16 and August 31, 2026.</p>
+                <div class="gg-app__kpis gg-app__kpis--3">
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Payout paid</span>
+                    <strong>Sep 15, 2026</strong>
+                    <span>Payout PO-20260915</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Donations included</span>
+                    <strong>42</strong>
+                    <span>Aug 16 – Aug 31, 2026</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Total donated</span>
+                    <strong>$3,418.50</strong>
+                    <span>Before any fees</span>
+                  </div>
+                </div>
+                <div class="gg-app__panel gg-app__panel--table">
+                  <div class="gg-app__panel-head">
+                    <strong>Report Details</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-copy"/></svg>Copy table</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export CSV</span></span>
+                  </div>
+                  <table class="gg-app__table">
+                    <thead><tr><th>Date</th><th>Donor</th><th>Fundraiser or project</th><th class="is-num">Amount</th></tr></thead>
+                    <tbody>
+                      <tr><td>2026-08-31</td><td>Anonymous</td><td>Autumn River Run</td><td class="is-num">$50.00</td></tr>
+                      <tr><td>2026-08-31</td><td>Ella Johansson</td><td>Liam Chen</td><td class="is-num">$120.00</td></tr>
+                      <tr><td>2026-08-30</td><td>Marcus Lee</td><td>General donation</td><td class="is-num">$25.00</td></tr>
+                      <tr><td>2026-08-29</td><td>Anonymous</td><td>Amara Okafor</td><td class="is-num">$200.00</td></tr>
+                      <tr><td>2026-08-29</td><td>Noah Fischer</td><td>Sofia Martins</td><td class="is-num">$75.00</td></tr>
+                    </tbody>
+                  </table>
+                  <p class="gg-app__table-note">Showing 5 of 42 donations</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gg-app__screen" id="gg-screen-donors" data-gg-screen="donors" hidden>
+              <div class="gg-app__bubble">How many unique donors supported us in the last six months?</div>
+              <div class="gg-app__reply">
+                <p>684 unique donors supported you in the last six months (March 29 – September 28, 2026). 486 of them (71%) gave to you for the first time.</p>
+                <div class="gg-app__kpis gg-app__kpis--3">
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Unique donors</span>
+                    <strong>684</strong>
+                    <span>Mar 29 – Sep 28, 2026</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">First-time donors</span>
+                    <strong>486</strong>
+                    <span>71% of donors</span>
+                  </div>
+                  <div class="gg-app__kpi">
+                    <span class="gg-app__kpi-label">Returning donors</span>
+                    <strong>198</strong>
+                    <span>29% of donors</span>
+                  </div>
+                </div>
+                <div class="gg-app__panel">
+                  <div class="gg-app__panel-head">
+                    <strong>Unique donors by month</strong>
+                    <span class="gg-app__tools"><span><svg class="gg-icon"><use href="#i-download"/></svg>Export PNG</span><span><svg class="gg-icon"><use href="#i-download"/></svg>Export SVG</span></span>
+                  </div>
+                  <svg class="gg-chart" viewBox="0 0 640 282" role="img" aria-label="Bar chart of unique donors each month from April to September 2026">
+                    <g class="gg-chart__grid"><line x1="56" x2="624" y1="170" y2="170"/><line x1="56" x2="624" y1="120" y2="120"/><line x1="56" x2="624" y1="70" y2="70"/><line x1="56" x2="624" y1="20" y2="20"/></g>
+                    <line class="gg-chart__axis" x1="56" x2="624" y1="220" y2="220"/>
+                    <g class="gg-chart__y"><text x="46" y="174">50</text><text x="46" y="124">100</text><text x="46" y="74">150</text><text x="46" y="24">200</text><text x="46" y="224">0</text></g>
+                    <g class="gg-chart__bars"><rect class="is-curr" x="79.7" y="102.0" width="47.3" height="118.0" rx="3"/><rect class="is-curr" x="174.3" y="22.0" width="47.3" height="198.0" rx="3"/><rect class="is-curr" x="269.0" y="111.0" width="47.3" height="109.0" rx="3"/><rect class="is-curr" x="363.7" y="136.0" width="47.3" height="84.0" rx="3"/><rect class="is-curr" x="458.3" y="130.0" width="47.3" height="90.0" rx="3"/><rect class="is-curr" x="553.0" y="89.0" width="47.3" height="131.0" rx="3"/></g>
+                    <g class="gg-chart__x"><text x="103.3" y="244">Apr</text><text x="198.0" y="244">May</text><text x="292.7" y="244">Jun</text><text x="387.3" y="244">Jul</text><text x="482.0" y="244">Aug</text><text x="576.7" y="244">Sep</text></g>
+                    <g class="gg-chart__legend"><rect class="is-curr" x="265" y="262" width="12" height="12" rx="2"/><text x="283" y="273">Unique donors</text></g>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="gg-app__input">
-            <span class="gg-app__field"><span class="gg-app__typed" data-gg-typed></span><span class="gg-app__placeholder">Ask a question about your fundraising data…</span></span>
-            <span class="gg-app__send"><svg class="gg-icon"><use href="#i-send"/></svg></span>
+            <span class="gg-app__field" aria-hidden="true"><span class="gg-app__placeholder">Ask a question about your fundraising data…</span></span>
+            <span class="gg-app__send" aria-hidden="true"><svg class="gg-icon"><use href="#i-send"/></svg></span>
           </div>
         </div>
       </figure>
