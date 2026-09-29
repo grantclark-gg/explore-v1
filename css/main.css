@@ -734,42 +734,51 @@ button { font: inherit; color: inherit; }
   .gg-chart { padding-inline: 0.25rem; }
 }
 
-/* Output types */
-.gg-outputs { max-width: 880px; margin: clamp(3rem, 6vw, 4.5rem) auto 0; text-align: center; }
+/* Output types: a lavender panel under the demo, same width, with a tidy grid of ticked items */
+.gg-outputs {
+  max-width: 960px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+  border-radius: 24px;
+  background: var(--gg-lavender);
+}
 .gg-outputs__label {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.5rem;
   color: var(--gg-dark-purple);
   font-size: var(--gg-fs-eyebrow);
   font-weight: 700;
   letter-spacing: var(--gg-tracking-caps);
+  text-align: center;
   text-transform: uppercase;
 }
 .gg-outputs__list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.9rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem 2rem;
 }
 .gg-outputs__list li {
-  position: relative;
-  padding-left: 1.85rem;
-  font-size: 1.0625rem;
-  font-weight: 600;
-  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
 }
 .gg-outputs__list li::before {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 0.1em;
-  width: 1.35rem;
-  height: 1.35rem;
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 50%;
-  background: var(--gg-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315006d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center / 70% no-repeat;
+  background: var(--gg-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2315006d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center / 68% no-repeat;
 }
 
-@media (max-width: 600px) {
-  .gg-outputs__list { flex-direction: column; align-items: flex-start; max-width: 22rem; margin-inline: auto; gap: 0.75rem; }
+@media (max-width: 860px) {
+  .gg-outputs__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 540px) {
+  .gg-outputs__list { grid-template-columns: 1fr; gap: 0.9rem; }
+  .gg-outputs__list li { font-size: 1.0625rem; }
 }
 
 /* ==========================================================================
